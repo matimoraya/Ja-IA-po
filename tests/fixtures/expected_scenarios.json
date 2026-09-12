@@ -1,0 +1,45 @@
+{
+  "scenario-a": {
+    "expected_classification": "incident",
+    "expected_severity": "high",
+    "expected_evidence_ids": [
+      "evt-a-001",
+      "evt-a-002",
+      "evt-a-004",
+      "evt-a-005",
+      "evt-a-006",
+      "evt-a-007",
+      "conn-a-001"
+    ],
+    "must_correlate": {
+      "host": "web-01",
+      "user": "elias",
+      "pid": 4368,
+      "remote_ip": "203.0.113.45",
+      "sequence": ["auth_failure", "auth_success", "file_write", "process_started", "network_connection"]
+    }
+  },
+  "scenario-b": {
+    "expected_classification": "benign",
+    "expected_severity": "info",
+    "expected_evidence_ids": [
+      "evt-b-001",
+      "evt-b-002",
+      "evt-b-003",
+      "evt-b-005",
+      "evt-b-006",
+      "evt-b-007",
+      "evt-b-008",
+      "evt-b-009",
+      "dep-b-001"
+    ],
+    "must_correlate": {
+      "host": "reports-01",
+      "user": "ops-admin",
+      "pid": 5188,
+      "remote_ip": "198.51.100.80",
+      "change_id": "CHG-2026-0912-07",
+      "sequence": ["auth_failure", "auth_failure", "auth_success", "change_window", "process_started", "network_connection", "service_restart", "deployment_completed"]
+    }
+  }
+}
