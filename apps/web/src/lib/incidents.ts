@@ -1,7 +1,15 @@
 /** Sample container context. Follow-ups are retrieved separately from Ambiguous. */
 import type { WorkplaceTask } from "./followup-types";
+import { SOC_SCENARIOS } from "./soc-scenarios";
 
 export const incidents = [
+  ...SOC_SCENARIOS.map(scenario => ({
+    id: scenario.containerId, title: scenario.title, severity: "Por investigar", status: "Escenario SOC",
+    service: scenario.host, owner: "Equipo SOC", channel: "Laboratorio sintético", updated: "2026-09-12",
+    summary: "Escenario sintético del equipo. Consulta los registros antes de concluir qué ocurrió.",
+    impact: "Pendiente de determinar mediante evidencia.",
+    timeline: [] as { time: string; author: string; detail: string }[],
+  })),
   {
     id: "CONT-8A19",
     title: "Database Container Restarting",

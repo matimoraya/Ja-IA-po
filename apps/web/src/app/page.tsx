@@ -5,6 +5,7 @@ import {
   CopilotChat,
   useConfigureSuggestions,
 } from "@copilotkit/react-core/v2";
+import { SocTools } from "@/components/soc-tools";
 import { GenerativeUI } from "@/components/generative-ui";
 import { AppControl } from "@/components/app-control";
 import { findIncident, incidents, workspaceContext } from "@/lib/incidents";
@@ -61,6 +62,7 @@ export default function Home() {
           <span className="ck-tag">Sample data</span>
         </header>
 
+        <SocTools key={selectedId} containerId={selectedId} />
         <div className="ck-workspace-grid">
           <section className="ck-panel" aria-labelledby="incident-title">
             <div className="ck-incident-picker">

@@ -9,7 +9,7 @@ test("selection changes the shared container and timeline together", () => {
   assert.equal(db.selectedIncident.service, "PostgreSQL DB");
   assert.equal(frontend.selectedIncident.service, "Next.js Frontend");
   assert.match(frontend.selectedIncident.timeline[0].detail, /loading/);
-  assert.equal(frontend.availableIncidents.length, 2);
+  assert.equal(frontend.availableIncidents.length, 4);
 });
 
 test("workspace context labels sample containers and provider actions", () => {

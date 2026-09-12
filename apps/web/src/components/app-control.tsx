@@ -60,21 +60,7 @@ export function AppControl({
     [selectIncident],
   );
 
-  useFrontendTool(
-    {
-      name: "inspect_container_logs",
-      description:
-        "Mock Docker logs retrieval for a container. Returns sample logs to help with analysis.",
-      parameters: z.object({ incidentId: z.string() }),
-      handler: async ({ incidentId }) => {
-        const incident = findIncident(incidentId);
-        return `Mock Logs for ${incident.id}: Error at 09:24 UTC. Reason: ${incident.summary}`;
-      },
-    },
-    [],
-  );
-
-  useFrontendTool(
+useFrontendTool(
     {
       name: "propose_docker_action",
       description:

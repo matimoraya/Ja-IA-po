@@ -21,9 +21,10 @@ def timestamp(value):
 class ScenarioTools:
     """Crear una instancia por investigación; scenario_id lo fija el servidor."""
 
-    def __init__(self, scenario_id, root=None):
+    def __init__(self, scenario_id, root=None, *, scenario_data=None):
         self.scenario_id = scenario_id
         self.root = Path(root or Path(__file__).resolve().parents[2] / "data/scenarios").resolve()
+        self.scenario_data = scenario_data
 
     def _load(self):
         if not isinstance(self.scenario_id, str) or not re.fullmatch(r"[a-zA-Z0-9_-]+", self.scenario_id):
@@ -31,9 +32,12 @@ class ScenarioTools:
         path = (self.root / self.scenario_id / "scenario.json").resolve()
         if not path.is_relative_to(self.root):
             raise ValueError("Ruta fuera del directorio de escenarios")
-        if path.stat().st_size > 5_000_000:
-            raise ValueError("Escenario demasiado grande")
-        data = json.loads(path.read_text(encoding="utf-8-sig"))
+        if self.scenario_data is not None:
+            data = self.scenario_data
+        else:
+            if path.stat().st_size > 5_000_000:
+                raise ValueError("Escenario demasiado grande")
+            data = json.loads(path.read_text(encoding="utf-8-sig"))
         if not isinstance(data, dict) or data.get("id") != self.scenario_id:
             raise ValueError("ID del archivo incompatible")
         for collection in ("events", "processes", "connections", "deployments"):

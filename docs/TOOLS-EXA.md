@@ -1,5 +1,7 @@
 # Consultas de datos y Exa — entrega de Manu
 
+La conexión con la web Next.js ya está disponible. Ver [configuración y pruebas de integración](INTEGRACION-SOC.md). El backend utiliza este mismo módulo Python mediante un puente controlado.
+
 Implementado en Python 3.11+ con biblioteca estándar, sin instalar SDKs. Se usa el HTTP oficial de Exa, según `build-with-exa` v0.2.0 cargado con el comando solicitado. No hay API de modelo ni frontend en este módulo.
 
 ## Ejecutar
