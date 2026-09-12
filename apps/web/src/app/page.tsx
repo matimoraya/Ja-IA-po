@@ -51,23 +51,52 @@ export default function Home() {
         selectIncident={selectIncident}
         workplace={workplace}
       />
+      <div className="ck-app-shell">
+        <aside className="ck-sidebar">
+          <div className="ck-brand">
+            <span className="ck-brand-mark" aria-hidden="true">J</span>
+            <div><strong>Ja-IA-po</strong><small>Security Operations</small></div>
+          </div>
+          <nav className="ck-nav" aria-label="Navegación principal">
+            <span className="ck-nav-item is-active"><b aria-hidden="true">⌁</b><span className="ck-nav-label">Investigación</span></span>
+            <span className="ck-nav-item"><b aria-hidden="true">▦</b><span className="ck-nav-label">Escenarios</span><em>{incidents.length}</em></span>
+            <span className="ck-nav-item"><b aria-hidden="true">◇</b><span className="ck-nav-label">Evidencias</span></span>
+            <span className="ck-nav-item"><b aria-hidden="true">✓</b><span className="ck-nav-label">Acciones</span></span>
+          </nav>
+          <div className="ck-sidebar-foot">
+            <span className="ck-live-dot" aria-hidden="true" />
+            <div><strong>Entorno de demo</strong><small>Datos sintéticos controlados</small></div>
+          </div>
+        </aside>
+
       <main className="ck-workspace">
+        <div className="ck-topbar">
+          <span>Centro de operaciones <b>/</b> Investigación activa</span>
+          <span className="ck-session"><i aria-hidden="true" /> Sesión protegida</span>
+        </div>
         <header className="ck-workspace-header">
           <div>
-            <p className="ck-eyebrow">Ja-IA-po · Docker SOC Agent</p>
+            <p className="ck-eyebrow">CASO ACTIVO · {selectedId}</p>
             <h1>Asistente SOC para Docker</h1>
             <p className="ck-intro">
-              Selecciona un contenedor, investiga la evidencia y revisa la acción propuesta.
+              Reúne evidencia, contrasta fuentes y prepara una respuesta controlada.
             </p>
           </div>
-          <span className="ck-tag">Escenarios sintéticos</span>
+          <span className="ck-tag ck-tag--warning"><i aria-hidden="true" /> Entorno simulado</span>
         </header>
 
         <ReadinessStatus />
 
+        <section className="ck-metrics" aria-label="Resumen del escenario">
+          <article><span>Severidad</span><strong>{incident.severity}</strong><small>Prioridad del caso</small></article>
+          <article><span>Estado</span><strong>{incident.status}</strong><small>Monitoreo activo</small></article>
+          <article><span>Evidencias</span><strong>{incident.timeline.length}</strong><small>Eventos correlacionados</small></article>
+          <article><span>Responsable</span><strong>{incident.owner}</strong><small>Asignación actual</small></article>
+        </section>
+
         <SocTools key={selectedId} containerId={selectedId} />
         <div className="ck-workspace-grid">
-          <section className="ck-panel" aria-labelledby="incident-title">
+          <section className="ck-panel ck-case-panel" aria-labelledby="incident-title">
             <div className="ck-incident-picker">
               <label htmlFor="incident-select">Contenedor</label>
               <select
@@ -84,7 +113,7 @@ export default function Home() {
             </div>
 
             <div className="ck-detail">
-              <span className="ck-status-label">{incident.status}</span>
+              <span className="ck-status-label"><i aria-hidden="true" /> {incident.status}</span>
               <h2 id="incident-title">{incident.title}</h2>
               <p>{incident.summary}</p>
               <details className="ck-more" key={incident.id}>
@@ -128,8 +157,10 @@ export default function Home() {
             aria-labelledby="assistant-title"
           >
             <header className="ck-assistant-header">
-              <h2 id="assistant-title">Consultar al asistente</h2>
-              <p>Puede investigar este contenedor y preparar acciones para revisión.</p>
+              <div className="ck-assistant-icon" aria-hidden="true">J</div>
+              <div><h2 id="assistant-title">Analista de apoyo</h2>
+              <p>Investiga el contexto visible y prepara acciones para tu revisión.</p></div>
+              <span className="ck-agent-state"><i aria-hidden="true" /> Disponible</span>
             </header>
             <CopilotChat
               className="ck-chat"
@@ -141,6 +172,7 @@ export default function Home() {
           </section>
         </div>
       </main>
+      </div>
     </>
   );
 }

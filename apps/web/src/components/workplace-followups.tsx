@@ -51,28 +51,28 @@ export function WorkplaceFollowups({
     <section className="ck-followups" aria-labelledby="followup-title">
       <header className="ck-followups-header">
         <div>
-          <h2 id="followup-title">Docker Actions</h2>
+          <h2 id="followup-title">Plan de respuesta</h2>
           <p className="ck-local-note">
-            Proposals are saved only after page approval.
+            Ninguna acción se registra sin tu aprobación.
           </p>
         </div>
-        <span className="ck-tag">Local Log</span>
+        <span className="ck-tag">Registro local</span>
       </header>
 
       {status?.status === "unconfigured" ? (
         <div className="ck-setup-note">
-          <strong>Backend configured to run in Mock Mode</strong>
+          <strong>Registro temporal activo</strong>
           <p>{status.message}</p>
         </div>
       ) : status?.status === "connected" ? (
         <p className="ck-local-note">
-          Saving as {status.identityName}.
+          Sesión de {status.identityName}.
         </p>
       ) : (
         <p className="ck-local-note">
           {workplace.error
-            ? "Action logging unavailable."
-            : "Connecting…"}
+            ? "El registro de acciones no está disponible."
+            : "Conectando…"}
         </p>
       )}
 
@@ -86,15 +86,15 @@ export function WorkplaceFollowups({
                 <code className="ck-record-id">{task.id}</code>
                 {task.url ? (
                   <a href={task.url} target="_blank" rel="noreferrer">
-                    View Action Record
+                    Ver registro de acción
                   </a>
                 ) : (
                   <span className="ck-muted">
-                    No URL provided. Use this ID in the workspace.
+                    Usa este identificador dentro del espacio de trabajo.
                   </span>
                 )}
                 <details>
-                  <summary>Saved details</summary>
+                  <summary>Detalles guardados</summary>
                   <p className="ck-preserve-lines">{task.description}</p>
                 </details>
               </div>
@@ -102,7 +102,7 @@ export function WorkplaceFollowups({
           ))}
         </ul>
       ) : status?.status === "connected" ? (
-        <p className="ck-empty">No saved actions for {incidentId}.</p>
+        <p className="ck-empty">Todavía no hay acciones registradas para {incidentId}.</p>
       ) : null}
 
       <button
@@ -111,7 +111,7 @@ export function WorkplaceFollowups({
         disabled={busy}
         onClick={refresh}
       >
-        Refresh actions
+        Actualizar registro
       </button>
 
       <form onSubmit={submit} className="ck-task-form ck-task-form--stacked">
@@ -123,7 +123,7 @@ export function WorkplaceFollowups({
           value={title}
           onChange={(event) => setTitle(event.target.value)}
           maxLength={200}
-          placeholder="Write an action title (e.g. Restart Container)…"
+          placeholder="Título de la acción (ej. Aislar contenedor)"
           required
         />
         <label className="ck-sr-only" htmlFor="task-details">
@@ -134,7 +134,7 @@ export function WorkplaceFollowups({
           value={details}
           onChange={(event) => setDetails(event.target.value)}
           maxLength={4000}
-          placeholder="What action should be taken?"
+          placeholder="Describe la acción, el motivo y el resultado esperado"
           required
           rows={3}
         />
@@ -143,15 +143,15 @@ export function WorkplaceFollowups({
           disabled={status?.status !== "connected" || preparing || busy}
           type="submit"
         >
-          {preparing ? "Preparing…" : "Review"}
+          {preparing ? "Preparando…" : "Revisar propuesta"}
         </button>
       </form>
 
       {proposal && (
-        <section className="ck-approval" aria-label="Approve Action">
-          <h3>Approve this Action</h3>
+        <section className="ck-approval" aria-label="Aprobar acción">
+          <h3>Revisar antes de registrar</h3>
           <p>
-            Save as {proposal.identityName}. Expires{" "}
+            Se registrará como {proposal.identityName}. Vence a las{" "}
             {new Date(proposal.expiresAt).toLocaleTimeString()}.
           </p>
           <strong>{proposal.title}</strong>
@@ -163,7 +163,7 @@ export function WorkplaceFollowups({
               disabled={busy}
               onClick={workplace.approve}
             >
-              {busy ? "Working…" : "Approve Action"}
+              {busy ? "Procesando…" : "Aprobar acción"}
             </button>
             <button
               type="button"
@@ -171,7 +171,7 @@ export function WorkplaceFollowups({
               disabled={busy}
               onClick={workplace.deny}
             >
-              Decline
+              Rechazar
             </button>
           </div>
         </section>
