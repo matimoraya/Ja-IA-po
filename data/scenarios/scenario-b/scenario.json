@@ -1,0 +1,146 @@
+{
+  "id": "scenario-b",
+  "title": "Accesos remotos y cambios en reportes",
+  "description": "Registros sintéticos de autenticación, tareas administrativas y cambios de servicio en un servidor de reportes.",
+  "synthetic": true,
+  "events": [
+    {
+      "id": "evt-b-001",
+      "timestamp": "2026-09-12T09:01:08-04:00",
+      "host": "reports-01",
+      "source": "sshd",
+      "event_type": "auth_failure",
+      "message": "Failed publickey for ops-admin from 192.0.2.44 port 60120 ssh2",
+      "user": "ops-admin",
+      "ip": "192.0.2.44"
+    },
+    {
+      "id": "evt-b-002",
+      "timestamp": "2026-09-12T09:01:23-04:00",
+      "host": "reports-01",
+      "source": "sshd",
+      "event_type": "auth_failure",
+      "message": "Failed publickey for ops-admin from 192.0.2.44 port 60122 ssh2",
+      "user": "ops-admin",
+      "ip": "192.0.2.44"
+    },
+    {
+      "id": "evt-b-003",
+      "timestamp": "2026-09-12T09:02:05-04:00",
+      "host": "reports-01",
+      "source": "sshd",
+      "event_type": "auth_success",
+      "message": "Accepted publickey for ops-admin from 192.0.2.44 port 60124 ssh2",
+      "user": "ops-admin",
+      "ip": "192.0.2.44"
+    },
+    {
+      "id": "evt-b-004",
+      "timestamp": "2026-09-12T09:02:06-04:00",
+      "host": "reports-01",
+      "source": "sshd",
+      "event_type": "session_opened",
+      "message": "pam_unix(sshd:session): session opened for user ops-admin by uid=0",
+      "user": "ops-admin",
+      "pid": 5120
+    },
+    {
+      "id": "evt-b-005",
+      "timestamp": "2026-09-12T09:03:11-04:00",
+      "host": "reports-01",
+      "source": "change-control",
+      "event_type": "change_window",
+      "message": "Change CHG-2026-0912-07 approved for reports-01 package refresh from 09:00 to 09:30",
+      "user": "ops-admin"
+    },
+    {
+      "id": "evt-b-006",
+      "timestamp": "2026-09-12T09:04:02-04:00",
+      "host": "reports-01",
+      "source": "auditd",
+      "event_type": "process_started",
+      "message": "execve command=\"/usr/bin/apt-get update\"",
+      "user": "ops-admin",
+      "pid": 5188
+    },
+    {
+      "id": "evt-b-007",
+      "timestamp": "2026-09-12T09:04:09-04:00",
+      "host": "reports-01",
+      "source": "netflow",
+      "event_type": "network_connection",
+      "message": "Outbound TCP connection from reports-01 pid 5188 to 198.51.100.80:443",
+      "user": "ops-admin",
+      "ip": "198.51.100.80",
+      "pid": 5188
+    },
+    {
+      "id": "evt-b-008",
+      "timestamp": "2026-09-12T09:07:40-04:00",
+      "host": "reports-01",
+      "source": "systemd",
+      "event_type": "service_restart",
+      "message": "reporting-worker.service restarted after package refresh CHG-2026-0912-07",
+      "user": "ops-admin",
+      "pid": 5244
+    },
+    {
+      "id": "evt-b-009",
+      "timestamp": "2026-09-12T09:08:12-04:00",
+      "host": "reports-01",
+      "source": "deployment",
+      "event_type": "deployment_completed",
+      "message": "Deployment record CHG-2026-0912-07 closed for reports-01 by ops-admin",
+      "user": "ops-admin"
+    }
+  ],
+  "processes": [
+    {
+      "pid": 5120,
+      "host": "reports-01",
+      "user": "ops-admin",
+      "command": "sshd: ops-admin [priv]",
+      "parent_pid": 902,
+      "started_at": "2026-09-12T09:02:05-04:00",
+      "event_ids": ["evt-b-003", "evt-b-004"]
+    },
+    {
+      "pid": 5188,
+      "host": "reports-01",
+      "user": "ops-admin",
+      "command": "/usr/bin/apt-get update",
+      "parent_pid": 5120,
+      "started_at": "2026-09-12T09:04:02-04:00",
+      "event_ids": ["evt-b-005", "evt-b-006", "evt-b-007"]
+    },
+    {
+      "pid": 5244,
+      "host": "reports-01",
+      "user": "ops-admin",
+      "command": "/bin/systemctl restart reporting-worker.service",
+      "parent_pid": 5120,
+      "started_at": "2026-09-12T09:07:40-04:00",
+      "event_ids": ["evt-b-005", "evt-b-008", "evt-b-009"]
+    }
+  ],
+  "connections": [
+    {
+      "id": "conn-b-001",
+      "host": "reports-01",
+      "pid": 5188,
+      "remote_ip": "198.51.100.80",
+      "remote_port": 443,
+      "timestamp": "2026-09-12T09:04:09-04:00",
+      "event_ids": ["evt-b-007"]
+    }
+  ],
+  "deployments": [
+    {
+      "id": "dep-b-001",
+      "host": "reports-01",
+      "timestamp": "2026-09-12T09:08:12-04:00",
+      "description": "Change CHG-2026-0912-07 applied to reporting-worker.service on reports-01 by ops-admin.",
+      "event_ids": ["evt-b-005", "evt-b-008", "evt-b-009"]
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "id": "scenario-a",
+  "title": "Actividad remota fuera de horario",
+  "description": "Registros sintéticos de acceso remoto, procesos y conexiones observadas en un servidor web durante una ventana nocturna.",
+  "synthetic": true,
+  "events": [
+    {
+      "id": "evt-a-001",
+      "timestamp": "2026-09-12T03:12:04-04:00",
+      "host": "web-01",
+      "source": "sshd",
+      "event_type": "auth_failure",
+      "message": "Failed password for elias from 198.51.100.23 port 51844 ssh2",
+      "user": "elias",
+      "ip": "198.51.100.23"
+    },
+    {
+      "id": "evt-a-002",
+      "timestamp": "2026-09-12T03:12:36-04:00",
+      "host": "web-01",
+      "source": "sshd",
+      "event_type": "auth_success",
+      "message": "Accepted password for elias from 198.51.100.23 port 51846 ssh2",
+      "user": "elias",
+      "ip": "198.51.100.23"
+    },
+    {
+      "id": "evt-a-003",
+      "timestamp": "2026-09-12T03:12:37-04:00",
+      "host": "web-01",
+      "source": "sshd",
+      "event_type": "session_opened",
+      "message": "pam_unix(sshd:session): session opened for user elias by uid=0",
+      "user": "elias",
+      "pid": 4217
+    },
+    {
+      "id": "evt-a-004",
+      "timestamp": "2026-09-12T03:14:08-04:00",
+      "host": "web-01",
+      "source": "auditd",
+      "event_type": "file_write",
+      "message": "USER_CMD cwd=/home/elias command=\"printf key-marker >> /home/elias/.ssh/authorized_keys\"",
+      "user": "elias",
+      "pid": 4312
+    },
+    {
+      "id": "evt-a-005",
+      "timestamp": "2026-09-12T03:16:19-04:00",
+      "host": "web-01",
+      "source": "auditd",
+      "event_type": "process_started",
+      "message": "execve command=\"/usr/bin/python3 /tmp/.cache/update-check.py --endpoint 203.0.113.45:443\"",
+      "user": "elias",
+      "pid": 4368
+    },
+    {
+      "id": "evt-a-006",
+      "timestamp": "2026-09-12T03:16:25-04:00",
+      "host": "web-01",
+      "source": "netflow",
+      "event_type": "network_connection",
+      "message": "Outbound TCP connection from web-01 pid 4368 to 203.0.113.45:443",
+      "user": "elias",
+      "ip": "203.0.113.45",
+      "pid": 4368
+    },
+    {
+      "id": "evt-a-007",
+      "timestamp": "2026-09-12T03:18:02-04:00",
+      "host": "web-01",
+      "source": "bash",
+      "event_type": "history_update",
+      "message": "Shell history file for elias truncated from active session",
+      "user": "elias",
+      "pid": 4312
+    }
+  ],
+  "processes": [
+    {
+      "pid": 4217,
+      "host": "web-01",
+      "user": "elias",
+      "command": "sshd: elias [priv]",
+      "parent_pid": 892,
+      "started_at": "2026-09-12T03:12:36-04:00",
+      "event_ids": ["evt-a-002", "evt-a-003"]
+    },
+    {
+      "pid": 4312,
+      "host": "web-01",
+      "user": "elias",
+      "command": "/bin/bash",
+      "parent_pid": 4217,
+      "started_at": "2026-09-12T03:12:39-04:00",
+      "event_ids": ["evt-a-003", "evt-a-004", "evt-a-007"]
+    },
+    {
+      "pid": 4368,
+      "host": "web-01",
+      "user": "elias",
+      "command": "/usr/bin/python3 /tmp/.cache/update-check.py --endpoint 203.0.113.45:443",
+      "parent_pid": 4312,
+      "started_at": "2026-09-12T03:16:19-04:00",
+      "event_ids": ["evt-a-005", "evt-a-006"]
+    }
+  ],
+  "connections": [
+    {
+      "id": "conn-a-001",
+      "host": "web-01",
+      "pid": 4368,
+      "remote_ip": "203.0.113.45",
+      "remote_port": 443,
+      "timestamp": "2026-09-12T03:16:25-04:00",
+      "event_ids": ["evt-a-006"]
+    }
+  ],
+  "deployments": [
+    {
+      "id": "dep-a-001",
+      "host": "web-01",
+      "timestamp": "2026-09-11T22:10:00-04:00",
+      "description": "Release 2026.09.11-2 completed by ci-runner before the overnight access window.",
+      "event_ids": []
+    }
+  ]
+}
