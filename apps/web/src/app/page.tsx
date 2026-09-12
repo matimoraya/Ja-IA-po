@@ -28,14 +28,14 @@ export default function Home() {
     {
       suggestions: [
         {
-          title: "Investigar caso completo",
+          title: "Analyze this container",
           message:
-            "Ejecuta una investigación completa del contenedor seleccionado. Primero consulta su línea de tiempo y la evidencia local disponible; después correlaciona procesos, conexiones y despliegues cuando existan. Busca con Exa contexto público sobre la técnica o el fallo observado sin enviar datos privados. Entrega una clasificación, severidad, resumen, hallazgos y recomendaciones. Cita los IDs exactos de evidencia local y de fuentes públicas, separa hechos de contexto externo y declara cualquier limitación o dato faltante.",
+            "Analyze the selected container using the page context. Is there suspicious activity or errors?",
         },
         {
-          title: "Preparar respuesta segura",
+          title: "Propose an action",
           message:
-            "Basándote únicamente en la evidencia observada del contenedor seleccionado, prepara una acción de respuesta con su justificación, riesgo e impacto esperado. No afirmes que fue ejecutada y muéstrala para revisión humana antes de registrarla.",
+            "Prepare a Docker action for the selected container. Show me the proposal before it is saved.",
         },
       ],
       available: "before-first-message",
@@ -162,13 +162,6 @@ export default function Home() {
               <p>Investiga el contexto visible y prepara acciones para tu revisión.</p></div>
               <span className="ck-agent-state"><i aria-hidden="true" /> Disponible</span>
             </header>
-            <div className="ck-runbook" aria-label="Flujo de investigación guiada">
-              <strong>Runbook guiado</strong>
-              <span><b>1</b> Evidencia local</span><i aria-hidden="true">→</i>
-              <span><b>2</b> Correlación</span><i aria-hidden="true">→</i>
-              <span><b>3</b> Fuentes Exa</span><i aria-hidden="true">→</i>
-              <span><b>4</b> Decisión revisable</span>
-            </div>
             <CopilotChat
               className="ck-chat"
               labels={{

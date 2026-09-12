@@ -703,22 +703,6 @@ body {
 .ck-assistant-header p { font-size: 9px; }
 .ck-agent-state { display: flex; align-items: center; gap: 7px; margin-left: auto; color: #547064; font-size: 9px; }
 .ck-agent-state i { display: block; width: 5px; height: 5px; box-shadow: none; }
-.ck-runbook {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 18px;
-  overflow-x: auto;
-  color: #65716b;
-  background: #f4f7f5;
-  border-bottom: 1px solid var(--border);
-  font-size: 8px;
-  white-space: nowrap;
-}
-.ck-runbook strong { color: var(--accent); font-size: 9px; letter-spacing: .05em; text-transform: uppercase; }
-.ck-runbook span { display: inline-flex; align-items: center; gap: 5px; }
-.ck-runbook span b { display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; color: var(--accent); background: #dcebe4; font-size: 8px; }
-.ck-runbook > i { color: #9aa49f; font-style: normal; }
 .ck-followups h2 { font-size: 14px; }
 .ck-followups-header .ck-tag { background: #f8faf9; }
 .ck-setup-note, .ck-approval { background: #f6f8f7; }
