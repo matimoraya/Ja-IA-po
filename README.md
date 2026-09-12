@@ -1,14 +1,34 @@
 <div align="center">
 
-# Agents, Everywhere Hackathon Starter Kit
+# Ja-IA-po · Asistente SOC para Docker
 
 ![Agents, Everywhere hackathon — OpenAI, CopilotKit, OpenRouter, Exa, Auth0, and Ambiguous AI](assets/banner.png)
 
-**Build an agent that belongs where people already work, talk, and live.**
+**Investiga escenarios de seguridad, correlaciona evidencia y consulta fuentes públicas con Exa desde una sola interfaz.**
 
 [Overview](#overview) · [Get started](#get-started) · [Templates](#templates) · [Coding agent](#coding-agent) · [Resources](#resources)
 
 </div>
+
+## Estado del proyecto
+
+La aplicación web integra el contexto de un contenedor seleccionado, herramientas SOC en Python, escenarios sintéticos del equipo, búsqueda web con Exa y un flujo de propuesta con aprobación humana. Los eventos locales prueban qué ocurrió en el escenario; las fuentes de Exa aportan contexto público y nunca se presentan como prueba del incidente.
+
+Para ejecutar la demo:
+
+```bash
+npm ci
+cp .env.example .env
+npm run dev:web
+```
+
+Configura `EXA_API_KEY` y una clave de modelo (`OPENAI_API_KEY` o `OPENROUTER_API_KEY`) en `.env`, luego abre `http://127.0.0.1:3100`. El panel **Estado** indica qué integración está disponible. Consulta [la integración SOC](docs/INTEGRACION-SOC.md), [el despliegue](docs/DEPLOYMENT.md) y [la entrega](SUBMISSION.md).
+
+Los contenedores, procesos y eventos incluidos son escenarios sintéticos para una demo reproducible. Las acciones se guardan durante la sesión si no se configura un proveedor persistente.
+
+---
+
+## Kit de origen
 
 ## Overview
 

@@ -1,0 +1,7 @@
+.git
+.env
+API.env
+node_modules
+**/.next
+**/__pycache__
+.data

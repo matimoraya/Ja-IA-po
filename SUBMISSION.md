@@ -17,6 +17,9 @@ Choose your city on the [global event page](https://aitinkerers.org/hackathons/g
 - Adapted the CopilotKit web template into a Docker SOC Assistant.
 - Implemented mock container lists (`incidents.ts`).
 - Created custom frontend tools (`inspect_container_logs`, `propose_docker_action`, `retrieve_docker_action`).
+- Connected the web surface to Juan's Python SOC tools and Elias's synthetic scenarios.
+- Integrated Exa Search for cited public mitigation and security context.
+- Added bounded queries, provenance labels, source links and a visible integration-status panel.
 - Modified the Next.js page UI to support analyzing containers, handling approvals, and logging local Actions.
 
 ## Title and description
@@ -33,7 +36,8 @@ The agent reads the specific container logs and context from the UI without the 
 **Sponsor technologies used**
 - CopilotKit React UI and `useCopilotChat`
 - CopilotKit Frontend Tools
-- OpenAI (as the backing model for CopilotKit)
+- OpenAI or OpenRouter (as the backing model for CopilotKit)
+- Exa Search API (`/search` with highlights) for grounded public sources
 
 ## Evidence for the judging criteria
 
@@ -54,7 +58,7 @@ Judges score each of the four official criteria from 1–5. This checklist helps
 
 - [x] A new participant can run the quickstart from a clean clone
 - [x] The README lists the credentials and separate processes required
-- [x] `npm run verify` passes; optional recipe checks pass if used
+- [x] `npm run verify` passes locally, including cross-platform workspace test discovery
 - [x] `.env`, tokens, generated traces with sensitive data, and account secrets are excluded
 - [x] Sample data, session-only state, and unimplemented integrations are clearly labeled
 

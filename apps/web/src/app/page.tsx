@@ -6,6 +6,7 @@ import {
   useConfigureSuggestions,
 } from "@copilotkit/react-core/v2";
 import { SocTools } from "@/components/soc-tools";
+import { ReadinessStatus } from "@/components/readiness";
 import { GenerativeUI } from "@/components/generative-ui";
 import { AppControl } from "@/components/app-control";
 import { findIncident, incidents, workspaceContext } from "@/lib/incidents";
@@ -54,19 +55,21 @@ export default function Home() {
         <header className="ck-workspace-header">
           <div>
             <p className="ck-eyebrow">Ja-IA-po · Docker SOC Agent</p>
-            <h1>Docker SOC Assistant</h1>
+            <h1>Asistente SOC para Docker</h1>
             <p className="ck-intro">
-              Pick a container. Ask your assistant to investigate. Review the proposed action.
+              Selecciona un contenedor, investiga la evidencia y revisa la acción propuesta.
             </p>
           </div>
-          <span className="ck-tag">Sample data</span>
+          <span className="ck-tag">Escenarios sintéticos</span>
         </header>
+
+        <ReadinessStatus />
 
         <SocTools key={selectedId} containerId={selectedId} />
         <div className="ck-workspace-grid">
           <section className="ck-panel" aria-labelledby="incident-title">
             <div className="ck-incident-picker">
-              <label htmlFor="incident-select">Container</label>
+              <label htmlFor="incident-select">Contenedor</label>
               <select
                 id="incident-select"
                 value={selectedId}
@@ -85,24 +88,24 @@ export default function Home() {
               <h2 id="incident-title">{incident.title}</h2>
               <p>{incident.summary}</p>
               <details className="ck-more" key={incident.id}>
-                <summary>Details &amp; logs timeline</summary>
+                <summary>Detalles y línea de tiempo</summary>
                 <dl className="ck-detail-facts">
                   <div>
-                    <dt>Owner</dt>
+                    <dt>Responsable</dt>
                     <dd>{incident.owner}</dd>
                   </div>
                   <div>
-                    <dt>Severity</dt>
+                    <dt>Severidad</dt>
                     <dd>{incident.severity}</dd>
                   </div>
                   <div>
-                    <dt>Last update</dt>
+                    <dt>Última actualización</dt>
                     <dd>{incident.updated}</dd>
                   </div>
                 </dl>
-                <h3>Impact</h3>
+                <h3>Impacto</h3>
                 <p>{incident.impact}</p>
-                <h3>Timeline</h3>
+                <h3>Línea de tiempo</h3>
                 <ol className="ck-timeline">
                   {incident.timeline.map((event) => (
                     <li key={event.time}>
@@ -125,14 +128,14 @@ export default function Home() {
             aria-labelledby="assistant-title"
           >
             <header className="ck-assistant-header">
-              <h2 id="assistant-title">Ask assistant</h2>
-              <p>It can investigate this container and prepare actions.</p>
+              <h2 id="assistant-title">Consultar al asistente</h2>
+              <p>Puede investigar este contenedor y preparar acciones para revisión.</p>
             </header>
             <CopilotChat
               className="ck-chat"
               labels={{
-                welcomeMessageText: "What container needs investigation?",
-                chatInputPlaceholder: "Ask about this container…",
+                welcomeMessageText: "¿Qué contenedor necesita investigación?",
+                chatInputPlaceholder: "Pregunta sobre este contenedor…",
               }}
             />
           </section>

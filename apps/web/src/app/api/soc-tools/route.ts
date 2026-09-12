@@ -7,14 +7,17 @@ export async function POST(request: Request) {
   const origin = request.headers.get("origin");
   let expected: URL;
   try { expected = new URL(`http://${host}`); } catch { return Response.json(fail("FORBIDDEN", "Host inválido."), { status: 403 }); }
-  if (!["localhost", "127.0.0.1", "[::1]"].includes(expected.hostname) ||
-      origin !== `${new URL(request.url).protocol}//${host}` ||
+  const requestOrigin = `${new URL(request.url).protocol}//${host}`;
+  const configuredOrigin = process.env.APP_ORIGIN?.replace(/\/$/, "");
+  const loopback = ["localhost", "127.0.0.1", "[::1]"].includes(expected.hostname);
+  if ((!loopback && configuredOrigin !== requestOrigin) || origin !== requestOrigin ||
       !request.headers.get("content-type")?.startsWith("application/json")) {
-    return Response.json(fail("FORBIDDEN", "Usar la aplicación local para consultar herramientas."), { status: 403 });
+    return Response.json(fail("FORBIDDEN", "Origen no autorizado para consultar herramientas."), { status: 403 });
   }
   const cookie = request.headers.get("cookie")?.match(/(?:^|;\s*)soc-session=([a-f0-9]{32})(?:;|$)/)?.[1];
   const session = cookie || randomBytes(16).toString("hex");
-  const headers = { "Cache-Control": "no-store", ...(!cookie ? { "Set-Cookie": `soc-session=${session}; HttpOnly; SameSite=Strict; Path=/api/soc-tools; Max-Age=3600` } : {}) };
+  const secure = new URL(request.url).protocol === "https:" ? "; Secure" : "";
+  const headers = { "Cache-Control": "no-store", ...(!cookie ? { "Set-Cookie": `soc-session=${session}; HttpOnly; SameSite=Strict${secure}; Path=/api/soc-tools; Max-Age=3600` } : {}) };
   try {
     const text = await request.text();
     if (text.length > 4096) return Response.json(fail("INVALID_ARGUMENT", "Solicitud demasiado grande."), { status: 413, headers });
